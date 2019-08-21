@@ -5,24 +5,24 @@ use crate::merge_classes;
 
 #[derive(Properties)]
 pub struct Props {
-    pub fluid: bool,
+    pub href: String,
 
     pub class: String,
-    pub children: Children<Container>,
+    pub children: Children<DropdownItem>,
 }
 
-pub struct Container {
+pub struct DropdownItem {
     props: Props,
 }
 
 pub enum Msg {}
 
-impl Component for Container {
+impl Component for DropdownItem {
     type Message = Msg;
     type Properties = Props;
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
-        Container { props }
+        DropdownItem { props }
     }
 
     fn update(&mut self, _msg: Self::Message) -> ShouldRender {
@@ -30,20 +30,21 @@ impl Component for Container {
     }
 }
 
-impl Renderable<Container> for Container {
+impl Renderable<DropdownItem> for DropdownItem {
     fn view(&self) -> Html<Self> {
-        let mut classes = String::from("container");
+        let classes: String = merge_classes("dropdown-item", &self.props.class);
 
-        if self.props.fluid {
-            classes = format!("{}-fluid", classes);
+        let mut href = String::from(&self.props.href);
+
+        if href == "" {
+            href = format!("#");
         }
 
-        classes = merge_classes(&classes ,&self.props.class);
 
         html! {
-            <div class=classes>
+            <a class=classes href=href>
                 { for (self.props.children).iter() }
-            </div>
+            </a>
         }
     }
 }

@@ -1,50 +1,58 @@
+use yew::html::Children;
 use yew::prelude::*;
 
-pub struct Dropdown {
-    show: bool,
+use crate::merge_classes;
+
+#[derive(Properties)]
+pub struct Props {
+    pub active: bool,
+    pub is_open: bool,
+    pub nav: bool,
+
+    /**
+     * @FIXME Make this props resuable, optional, multitype children support needed
+     * @TODO Add `dropdown-divider` as an child option
+     */
+    pub class: String,
+    pub children: Children<Dropdown>,
 }
 
-pub enum Msg {
-    Toggle,
+pub struct Dropdown {
+    props: Props,
 }
+
+pub enum Msg {}
 
 impl Component for Dropdown {
     type Message = Msg;
-    type Properties = ();
+    type Properties = Props;
 
-    fn create(_props: Self::Properties, _: ComponentLink<Self>) -> Self {
-        Dropdown { show: false }
+    fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
+        Dropdown { props }
     }
 
-    fn update(&mut self, msg: Self::Message) -> ShouldRender {
-        match msg {
-            Msg::Toggle => {
-                self.show = !self.show;
-            }
-        }
+    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
         true
     }
 }
 
 impl Renderable<Dropdown> for Dropdown {
     fn view(&self) -> Html<Self> {
-        let mut dropdown_menu_classes = String::from("dropdown-menu");
+        let mut classes = String::from("dropdown");
 
-        if self.show {
-            dropdown_menu_classes = format!("{} show", dropdown_menu_classes);
+        if self.props.nav {
+            classes = merge_classes(&classes, "nav-item");
+
+            if self.props.active {
+                classes = merge_classes(&classes, "active");
+            }
         }
 
+        classes = merge_classes(&classes, &self.props.class);
+
         html! {
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick=|_| Msg::Toggle >
-                {"Dropdown"}
-                </a>
-                <div class={dropdown_menu_classes} aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">{"Action"}</a>
-                    <a class="dropdown-item" href="#">{"Another action"}</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">{"Something else here"}</a>
-                </div>
+            <li class={classes}>
+                { for (self.props.children).iter() }
             </li>
         }
     }

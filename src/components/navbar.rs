@@ -1,18 +1,21 @@
+use yew::html::Children;
 use yew::prelude::*;
 
-use crate::components::dropdown::Dropdown;
+use crate::merge_classes;
 
-#[derive(PartialEq, Default, Clone, Properties)]
+#[derive(Properties)]
 pub struct Props {
-    pub title: String,
+    pub class: String,
+    pub children: Children<Navbar>,
 }
-
 
 pub struct Navbar {
-    props: Props
+    props: Props,
 }
 
-pub enum Msg {}
+pub enum Msg {
+    Toggle,
+}
 
 impl Component for Navbar {
     type Message = Msg;
@@ -29,30 +32,13 @@ impl Component for Navbar {
 
 impl Renderable<Navbar> for Navbar {
     fn view(&self) -> Html<Self> {
+        let classes = merge_classes(
+            "navbar navbar-expand-lg navbar-dark bg-dark",
+            &self.props.class,
+        );
         html! {
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div class="container">
-                    <a class="navbar-brand" href="#">
-                        {&self.props.title}
-                    </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="#">{"Home"} <span class="sr-only">{"(current)"}</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">{"Link"}</a>
-                            </li>
-                            <Dropdown />
-                            <li class="nav-item">
-                                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">{"Disabled"}</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+            <nav class=classes>
+                { for (self.props.children).iter() }
             </nav>
         }
     }

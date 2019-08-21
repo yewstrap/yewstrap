@@ -1,28 +1,28 @@
-use yew::html::Children;
 use yew::prelude::*;
 
 use crate::merge_classes;
 
 #[derive(Properties)]
 pub struct Props {
-    pub fluid: bool,
+    pub is_open: bool,
+    pub navbar: bool,
 
     pub class: String,
-    pub children: Children<Container>,
+    pub children: Children<Collapse>,
 }
 
-pub struct Container {
+pub struct Collapse {
     props: Props,
 }
 
 pub enum Msg {}
 
-impl Component for Container {
+impl Component for Collapse {
     type Message = Msg;
     type Properties = Props;
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
-        Container { props }
+        Collapse { props }
     }
 
     fn update(&mut self, _msg: Self::Message) -> ShouldRender {
@@ -30,15 +30,19 @@ impl Component for Container {
     }
 }
 
-impl Renderable<Container> for Container {
+impl Renderable<Collapse> for Collapse {
     fn view(&self) -> Html<Self> {
-        let mut classes = String::from("container");
+        let mut classes = String::from("collapse");
 
-        if self.props.fluid {
-            classes = format!("{}-fluid", classes);
+        if self.props.navbar {
+            classes = merge_classes(&classes, "navbar-collapse");
         }
 
-        classes = merge_classes(&classes ,&self.props.class);
+        if self.props.is_open {
+            classes = merge_classes(&classes, "show");
+        }
+
+        classes = merge_classes(&classes, &self.props.class);
 
         html! {
             <div class=classes>

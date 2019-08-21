@@ -1,29 +1,27 @@
-// use yew::html::Children;
 use yew::prelude::*;
 
 use crate::merge_classes;
 
 #[derive(Properties)]
 pub struct Props {
-    // noGutters: bool,
-    // form: bool,
-    
+    pub navbar: bool,
+
     pub class: String,
-    pub children: Children<Row>,
+    pub children: Children<Nav>,
 }
 
-pub struct Row {
+pub struct Nav {
     props: Props,
 }
 
 pub enum Msg {}
 
-impl Component for Row {
+impl Component for Nav {
     type Message = Msg;
     type Properties = Props;
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
-        Row { props }
+        Nav { props }
     }
 
     fn update(&mut self, _msg: Self::Message) -> ShouldRender {
@@ -31,14 +29,19 @@ impl Component for Row {
     }
 }
 
-impl Renderable<Row> for Row {
+impl Renderable<Nav> for Nav {
     fn view(&self) -> Html<Self> {
-        let classes = merge_classes("row", &self.props.class);
+        let mut classes = String::from("nav");
+        if self.props.navbar {
+            classes = format!("navbar-{}", &classes);
+        }
+
+        classes = merge_classes(&classes, &self.props.class);
 
         html! {
-            <div class=classes>
+            <ul class=classes>
             { for (self.props.children).iter() }
-            </div>
+            </ul>
         }
     }
 }

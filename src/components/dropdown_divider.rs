@@ -1,29 +1,24 @@
-// use yew::html::Children;
 use yew::prelude::*;
 
 use crate::merge_classes;
 
 #[derive(Properties)]
 pub struct Props {
-    // noGutters: bool,
-    // form: bool,
-    
     pub class: String,
-    pub children: Children<Row>,
 }
 
-pub struct Row {
+pub struct DropdownDivider {
     props: Props,
 }
 
 pub enum Msg {}
 
-impl Component for Row {
+impl Component for DropdownDivider {
     type Message = Msg;
     type Properties = Props;
 
     fn create(props: Self::Properties, _: ComponentLink<Self>) -> Self {
-        Row { props }
+        DropdownDivider { props }
     }
 
     fn update(&mut self, _msg: Self::Message) -> ShouldRender {
@@ -31,14 +26,12 @@ impl Component for Row {
     }
 }
 
-impl Renderable<Row> for Row {
+impl Renderable<DropdownDivider> for DropdownDivider {
     fn view(&self) -> Html<Self> {
-        let classes = merge_classes("row", &self.props.class);
+        let classes: String = merge_classes("dropdown-divider", &self.props.class);
 
         html! {
-            <div class=classes>
-            { for (self.props.children).iter() }
-            </div>
+            <div class=classes></div>
         }
     }
 }
