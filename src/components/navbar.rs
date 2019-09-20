@@ -1,11 +1,9 @@
 use yew::html::Children;
 use yew::prelude::*;
 
-use crate::merge_classes;
-
 #[derive(Properties)]
 pub struct Props {
-    pub class: String,
+    pub class: Classes,
     pub children: Children<Navbar>,
 }
 
@@ -32,10 +30,7 @@ impl Component for Navbar {
 
 impl Renderable<Navbar> for Navbar {
     fn view(&self) -> Html<Self> {
-        let classes = merge_classes(
-            "navbar navbar-expand-lg navbar-dark bg-dark",
-            &self.props.class,
-        );
+        let classes = self.props.class.extend("navbar navbar-expand-lg navbar-dark bg-dark"); // TODO is dark theming the navbar a good default behavior?
         html! {
             <nav class=classes>
                 { for (self.props.children).iter() }

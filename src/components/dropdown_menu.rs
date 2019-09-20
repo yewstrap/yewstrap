@@ -1,12 +1,10 @@
 use yew::prelude::*;
 
-use crate::merge_classes;
-
 #[derive(Properties)]
 pub struct Props {
     pub is_open: bool,
 
-    pub class: String,
+    pub class: Classes,
     pub children: Children<DropdownMenu>,
 }
 
@@ -31,13 +29,11 @@ impl Component for DropdownMenu {
 
 impl Renderable<DropdownMenu> for DropdownMenu {
     fn view(&self) -> Html<Self> {
-        let mut classes = String::from("dropdown-menu");
+        let mut classes = self.props.class.extend("dropdown-menu");
 
         if self.props.is_open {
-            classes = merge_classes(&classes, "show");
+            classes.push("show");
         }
-
-        classes = merge_classes(&classes, &self.props.class);
 
         html! {
             <div class=classes  aria-labelledby="navbarDropdown">

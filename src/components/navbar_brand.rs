@@ -1,7 +1,5 @@
 use yew::prelude::*;
 
-use crate::merge_classes;
-
 pub struct NavbarBrand {
     props: Props,
 }
@@ -10,7 +8,7 @@ pub struct NavbarBrand {
 pub struct Props {
     pub href: String,
 
-    pub class: String,
+    pub class: Classes,
     pub children: Children<NavbarBrand>,
 }
 
@@ -31,7 +29,7 @@ impl Component for NavbarBrand {
 
 impl Renderable<NavbarBrand> for NavbarBrand {
     fn view(&self) -> Html<Self> {
-        let classes = merge_classes("navbar-brand", &self.props.class);
+        let classes = self.props.class.extend("navbar-brand");
 
         let mut href = String::from(&self.props.href);
 

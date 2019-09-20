@@ -1,14 +1,12 @@
 use yew::prelude::*;
 
-use crate::merge_classes;
-
 pub struct Col {
     props: Props,
 }
 
 #[derive(Properties)]
 pub struct Props {
-    pub class: String,
+    pub class: Classes,
     pub children: Children<Col>,
 }
 
@@ -29,9 +27,7 @@ impl Component for Col {
 
 impl Renderable<Col> for Col {
     fn view(&self) -> Html<Self> {
-        let mut classes = String::from("col");
-
-        classes = merge_classes(&classes, &self.props.class);
+        let mut classes = self.props.class.extend("col");
 
         html! {
             <div class=classes>

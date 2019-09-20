@@ -1,10 +1,8 @@
 use yew::prelude::*;
 
-use crate::merge_classes;
-
 #[derive(Properties)]
 pub struct Props {
-    pub class: String,
+    pub class: Classes,
 }
 
 pub struct DropdownDivider {
@@ -28,7 +26,7 @@ impl Component for DropdownDivider {
 
 impl Renderable<DropdownDivider> for DropdownDivider {
     fn view(&self) -> Html<Self> {
-        let classes: String = merge_classes("dropdown-divider", &self.props.class);
+        let classes = self.props.class.extend("dropdown-divider");
 
         html! {
             <div class=classes></div>

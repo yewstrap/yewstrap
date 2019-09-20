@@ -1,14 +1,12 @@
 use yew::prelude::*;
 
-use crate::merge_classes;
-
 #[derive(Properties)]
 pub struct Props {
     pub active: bool,
     pub disabled: bool,
     pub href: String,
 
-    pub class: String,
+    pub class: Classes,
     pub children: Children<NavLink>,
 }
 
@@ -33,17 +31,13 @@ impl Component for NavLink {
 
 impl Renderable<NavLink> for NavLink {
     fn view(&self) -> Html<Self> {
-        let mut classes = String::from("nav-link");
-
+        let mut classes = self.props.class.extend("nav-link");
         if self.props.active {
-            classes = merge_classes(&classes, "active");
+            classes.push("active")
         }
-
         if self.props.disabled {
-            classes = merge_classes(&classes, "disabled");
+            classes.push("disabled")
         }
-
-        classes = merge_classes(&classes, &self.props.class);
 
         let mut href = String::from(&self.props.href);
 
