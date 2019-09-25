@@ -14,10 +14,6 @@ pub mod navbar_brand;
 pub mod navbar_toggler;
 pub mod row;
 
-pub fn merge_classes(class_a: &str, class_b: &str) -> String {
-    format!("{} {}", class_a, class_b)
-}
-
 pub use self::col::Col;
 pub use self::collapse::Collapse;
 pub use self::container::Container;

@@ -1,7 +1,5 @@
 use yew::prelude::*;
 
-use crate::merge_classes;
-
 pub struct NavbarToggler {
     props: Props,
 }
@@ -10,7 +8,7 @@ pub struct NavbarToggler {
 pub struct Props {
     // #[props(required)]
     // pub onclick: Callback<()>,
-    pub class: String,
+    pub class: Classes,
     pub children: Children<NavbarToggler>,
 }
 
@@ -38,7 +36,7 @@ impl Component for NavbarToggler {
 
 impl Renderable<NavbarToggler> for NavbarToggler {
     fn view(&self) -> Html<Self> {
-        let classes = merge_classes("navbar-toggler", &self.props.class);
+        let classes =  self.props.class.clone().extend("navbar-toggler");
 
         html! {
             <button class=classes type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation"

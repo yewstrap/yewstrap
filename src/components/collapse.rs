@@ -1,13 +1,11 @@
 use yew::prelude::*;
 
-use crate::merge_classes;
-
 #[derive(Properties)]
 pub struct Props {
     pub is_open: bool,
     pub navbar: bool,
 
-    pub class: String,
+    pub class: Classes,
     pub children: Children<Collapse>,
 }
 
@@ -32,17 +30,15 @@ impl Component for Collapse {
 
 impl Renderable<Collapse> for Collapse {
     fn view(&self) -> Html<Self> {
-        let mut classes = String::from("collapse");
+        let mut classes = self.props.class.clone().extend("collapse");
 
         if self.props.navbar {
-            classes = merge_classes(&classes, "navbar-collapse");
+            classes.push("navbar-collapse");
         }
 
         if self.props.is_open {
-            classes = merge_classes(&classes, "show");
+            classes.push("show");
         }
-
-        classes = merge_classes(&classes, &self.props.class);
 
         html! {
             <div class=classes>

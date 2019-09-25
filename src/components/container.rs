@@ -1,13 +1,11 @@
 use yew::html::Children;
 use yew::prelude::*;
 
-use crate::merge_classes;
-
 #[derive(Properties)]
 pub struct Props {
     pub fluid: bool,
 
-    pub class: String,
+    pub class: Classes,
     pub children: Children<Container>,
 }
 
@@ -32,13 +30,12 @@ impl Component for Container {
 
 impl Renderable<Container> for Container {
     fn view(&self) -> Html<Self> {
-        let mut classes = String::from("container");
 
-        if self.props.fluid {
-            classes = format!("{}-fluid", classes);
-        }
-
-        classes = merge_classes(&classes ,&self.props.class);
+        let classes = if self.props.fluid {
+            self.props.class.clone().extend("container-fluid")
+        } else {
+            self.props.class.clone().extend("container")
+        };
 
         html! {
             <div class=classes>

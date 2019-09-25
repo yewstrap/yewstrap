@@ -1,14 +1,12 @@
 // use yew::html::Children;
 use yew::prelude::*;
 
-use crate::merge_classes;
-
 #[derive(Properties)]
 pub struct Props {
     // noGutters: bool,
     // form: bool,
     
-    pub class: String,
+    pub class: Classes,
     pub children: Children<Row>,
 }
 
@@ -33,7 +31,7 @@ impl Component for Row {
 
 impl Renderable<Row> for Row {
     fn view(&self) -> Html<Self> {
-        let classes = merge_classes("row", &self.props.class);
+        let classes = self.props.class.clone().extend("row");
 
         html! {
             <div class=classes>

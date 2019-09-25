@@ -1,13 +1,11 @@
 use yew::html::Children;
 use yew::prelude::*;
 
-use crate::merge_classes;
-
 #[derive(Properties)]
 pub struct Props {
     pub href: String,
 
-    pub class: String,
+    pub class: Classes,
     pub children: Children<DropdownItem>,
 }
 
@@ -32,14 +30,13 @@ impl Component for DropdownItem {
 
 impl Renderable<DropdownItem> for DropdownItem {
     fn view(&self) -> Html<Self> {
-        let classes: String = merge_classes("dropdown-item", &self.props.class);
+        let classes = self.props.class.clone().extend("dropdown-item");
 
         let mut href = String::from(&self.props.href);
 
         if href == "" {
             href = format!("#");
         }
-
 
         html! {
             <a class=classes href=href>

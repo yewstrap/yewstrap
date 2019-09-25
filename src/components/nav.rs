@@ -1,12 +1,10 @@
 use yew::prelude::*;
 
-use crate::merge_classes;
-
 #[derive(Properties)]
 pub struct Props {
     pub navbar: bool,
 
-    pub class: String,
+    pub class: Classes,
     pub children: Children<Nav>,
 }
 
@@ -31,12 +29,11 @@ impl Component for Nav {
 
 impl Renderable<Nav> for Nav {
     fn view(&self) -> Html<Self> {
-        let mut classes = String::from("nav");
-        if self.props.navbar {
-            classes = format!("navbar-{}", &classes);
-        }
-
-        classes = merge_classes(&classes, &self.props.class);
+        let classes: Classes = if self.props.navbar {
+            self.props.class.clone().extend("navbar-nav")
+        } else {
+            self.props.class.clone().extend("nav")
+        };
 
         html! {
             <ul class=classes>

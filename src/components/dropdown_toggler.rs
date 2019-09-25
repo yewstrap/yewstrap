@@ -1,7 +1,5 @@
 use yew::prelude::*;
 
-use crate::merge_classes;
-
 pub struct DropdownToggler {
     props: Props,
 }
@@ -12,7 +10,7 @@ pub struct Props {
     pub nav: bool,
     // #[props(required)]
     // pub onclick: Callback<()>,
-    pub class: String,
+    pub class: Classes,
     pub children: Children<DropdownToggler>,
 }
 
@@ -40,16 +38,13 @@ impl Component for DropdownToggler {
 
 impl Renderable<DropdownToggler> for DropdownToggler {
     fn view(&self) -> Html<Self> {
-        let mut classes = String::new();
-
+        let mut classes = self.props.class.clone();
         if self.props.caret {
-            classes = merge_classes(&classes, "dropdown-toggle");
+            classes.push("dropdown-toggle");
         }
         if self.props.nav {
-            classes = merge_classes(&classes, "nav-link");
+            classes.push( "nav-link");
         }
-
-        classes = merge_classes(&classes, &self.props.class);
 
         html! {
             <a class=classes href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick=|_| Msg::Toggle >
