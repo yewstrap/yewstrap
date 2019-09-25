@@ -36,7 +36,7 @@ impl Component for NavbarToggler {
 
 impl Renderable<NavbarToggler> for NavbarToggler {
     fn view(&self) -> Html<Self> {
-        let classes =  self.props.class.extend("navbar-toggler");
+        let classes =  self.props.class.clone().extend("navbar-toggler");
 
         html! {
             <button class=classes type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation"

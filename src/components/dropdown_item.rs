@@ -30,7 +30,7 @@ impl Component for DropdownItem {
 
 impl Renderable<DropdownItem> for DropdownItem {
     fn view(&self) -> Html<Self> {
-        let classes = self.props.class.extend("dropdown-item");
+        let classes = self.props.class.clone().extend("dropdown-item");
 
         let mut href = String::from(&self.props.href);
 

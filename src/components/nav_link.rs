@@ -31,7 +31,7 @@ impl Component for NavLink {
 
 impl Renderable<NavLink> for NavLink {
     fn view(&self) -> Html<Self> {
-        let mut classes = self.props.class.extend("nav-link");
+        let mut classes = self.props.class.clone().extend("nav-link");
         if self.props.active {
             classes.push("active")
         }

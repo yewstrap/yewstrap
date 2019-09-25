@@ -31,7 +31,7 @@ impl Component for Row {
 
 impl Renderable<Row> for Row {
     fn view(&self) -> Html<Self> {
-        let classes = self.props.class.extend("row");
+        let classes = self.props.class.clone().extend("row");
 
         html! {
             <div class=classes>

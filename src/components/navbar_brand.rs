@@ -29,7 +29,7 @@ impl Component for NavbarBrand {
 
 impl Renderable<NavbarBrand> for NavbarBrand {
     fn view(&self) -> Html<Self> {
-        let classes = self.props.class.extend("navbar-brand");
+        let classes = self.props.class.clone().extend("navbar-brand");
 
         let mut href = String::from(&self.props.href);
 

@@ -27,7 +27,7 @@ impl Component for Col {
 
 impl Renderable<Col> for Col {
     fn view(&self) -> Html<Self> {
-        let mut classes = self.props.class.extend("col");
+        let classes = self.props.class.clone().extend("col");
 
         html! {
             <div class=classes>

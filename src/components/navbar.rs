@@ -30,7 +30,7 @@ impl Component for Navbar {
 
 impl Renderable<Navbar> for Navbar {
     fn view(&self) -> Html<Self> {
-        let classes = self.props.class.extend("navbar navbar-expand-lg navbar-dark bg-dark"); // TODO is dark theming the navbar a good default behavior?
+        let classes = self.props.class.clone().extend("navbar navbar-expand-lg navbar-dark bg-dark"); // TODO is dark theming the navbar a good default behavior?
         html! {
             <nav class=classes>
                 { for (self.props.children).iter() }

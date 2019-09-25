@@ -30,13 +30,12 @@ impl Component for Container {
 
 impl Renderable<Container> for Container {
     fn view(&self) -> Html<Self> {
-        let mut classes = self.props.class.extend("container");
 
-        if self.props.fluid {
-            self.props.class.extend("container-fluid");
+        let classes = if self.props.fluid {
+            self.props.class.clone().extend("container-fluid")
         } else {
-            self.props.class.extend("container");
-        }
+            self.props.class.clone().extend("container")
+        };
 
         html! {
             <div class=classes>

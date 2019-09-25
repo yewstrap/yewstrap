@@ -29,7 +29,7 @@ impl Component for DropdownMenu {
 
 impl Renderable<DropdownMenu> for DropdownMenu {
     fn view(&self) -> Html<Self> {
-        let mut classes = self.props.class.extend("dropdown-menu");
+        let mut classes = self.props.class.clone().extend("dropdown-menu");
 
         if self.props.is_open {
             classes.push("show");

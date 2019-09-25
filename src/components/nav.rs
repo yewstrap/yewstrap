@@ -30,9 +30,9 @@ impl Component for Nav {
 impl Renderable<Nav> for Nav {
     fn view(&self) -> Html<Self> {
         let classes: Classes = if self.props.navbar {
-            self.props.class.extend("navbar-nav")
+            self.props.class.clone().extend("navbar-nav")
         } else {
-            self.props.class.extend("nav")
+            self.props.class.clone().extend("nav")
         };
 
         html! {

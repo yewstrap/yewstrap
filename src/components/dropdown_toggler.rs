@@ -40,10 +40,10 @@ impl Renderable<DropdownToggler> for DropdownToggler {
     fn view(&self) -> Html<Self> {
         let mut classes = self.props.class.clone();
         if self.props.caret {
-            classes.extend("dropdown-toggle");
+            classes.push("dropdown-toggle");
         }
         if self.props.nav {
-            classes.extend( "nav-link");
+            classes.push( "nav-link");
         }
 
         html! {

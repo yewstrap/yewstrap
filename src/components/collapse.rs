@@ -30,7 +30,7 @@ impl Component for Collapse {
 
 impl Renderable<Collapse> for Collapse {
     fn view(&self) -> Html<Self> {
-        let mut classes = self.props.class.extend("collapse");
+        let mut classes = self.props.class.clone().extend("collapse");
 
         if self.props.navbar {
             classes.push("navbar-collapse");

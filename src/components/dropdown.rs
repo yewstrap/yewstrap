@@ -36,11 +36,10 @@ impl Component for Dropdown {
 
 impl Renderable<Dropdown> for Dropdown {
     fn view(&self) -> Html<Self> {
-        let mut classes = self.props.class.extend("dropdown");
+        let mut classes = self.props.class.clone().extend("dropdown");
 
         if self.props.nav {
             classes.push("nav-item");
-
             if self.props.active {
                 classes.push("active");
             }

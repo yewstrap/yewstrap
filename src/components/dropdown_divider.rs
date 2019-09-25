@@ -26,7 +26,7 @@ impl Component for DropdownDivider {
 
 impl Renderable<DropdownDivider> for DropdownDivider {
     fn view(&self) -> Html<Self> {
-        let classes = self.props.class.extend("dropdown-divider");
+        let classes = self.props.class.clone().clone().extend("dropdown-divider");
 
         html! {
             <div class=classes></div>
